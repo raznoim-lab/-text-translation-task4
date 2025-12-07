@@ -78,12 +78,21 @@ def CodeLang(lang: str) -> str:
     return "Невідомий код або мова"
 
 
-def LanguageList(out: str = 'screen', text: Optional[str] = None) -> str:
+def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = None) -> str:
+    """Print or save a table of available languages.
+
+    Args:
+        out: 'screen' to print, or a filepath to write.
+        text: optional text to translate into each language.
+        max_items: if set, limit the output to that many languages (for shorter output).
+    """
     if Translator is None:
         return "Error: googletrans not installed"
     try:
         trans = Translator()
         items = sorted(LANGUAGES.items())
+        if max_items is not None and max_items > 0:
+            items = items[:max_items]
         col1 = max(len('Code'), max((len(k) for k, _ in items), default=4))
         col2 = max(len('Language'), max((len(v) for _, v in items), default=8))
         if text:

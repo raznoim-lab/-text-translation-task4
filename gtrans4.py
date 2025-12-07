@@ -30,8 +30,9 @@ def main():
         print('Detect language:', gtrans4.LangDetect(txt, 'all'))
         print('Translate:', gtrans4.TransLate(txt, 'auto', 'en'))
         print('Get code:', gtrans4.CodeLang('en'))
-        print('\nLanguage list:')
-        gtrans4.LanguageList('screen', txt)
+        print('\nLanguage list (trimmed to 20):')
+        # Trim the language list for readability in demo
+        gtrans4.LanguageList('screen', txt, max_items=20)
     except Exception as e:
         print('Error while running demo:', e)
 
