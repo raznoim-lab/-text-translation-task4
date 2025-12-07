@@ -1,7 +1,3 @@
-# Модуль для перекладу за допомогою googletrans
-# автор: Didovets
-# дата: 07.12.2025
-
 from typing import Optional
 try:
     from googletrans import Translator, LANGUAGES
@@ -12,12 +8,10 @@ import asyncio
 
 
 def _maybe_await(value):
-    """If `value` is a coroutine, run it and return the result; otherwise return as-is."""
     if asyncio.iscoroutine(value):
         try:
             return asyncio.run(value)
         except RuntimeError:
-            # If there's already a running loop, use it to run the coroutine
             loop = asyncio.get_event_loop()
             return loop.run_until_complete(value)
     return value
@@ -78,14 +72,7 @@ def CodeLang(lang: str) -> str:
     return "Невідомий код або мова"
 
 
-def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = None) -> str:
-    """Print or save a table of available languages.
-
-    Args:
-        out: 'screen' to print, or a filepath to write.
-        text: optional text to translate into each language.
-        max_items: if set, limit the output to that many languages (for shorter output).
-    """
+def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = 10) -> str:
     if Translator is None:
         return "Error: googletrans not installed"
     try:
