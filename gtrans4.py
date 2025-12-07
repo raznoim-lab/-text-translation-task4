@@ -26,7 +26,7 @@ def main():
         print('Get code:', gtrans4.CodeLang('en'))
         print('\nPopular languages:')
         popular = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'it', 'pl', 'pt', 'nl']
-        gtrans4.LanguageList('screen', txt, langs=popular)
+        gtrans4.LanguageList('screen', txt, langs=popular, only_success=True)
     except Exception as e:
         print('Error:', e)
 

@@ -72,7 +72,7 @@ def CodeLang(lang: str) -> str:
     return "Невідомий код або мова"
 
 
-def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = 10, langs: Optional[List[str]] = None) -> str:
+def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = 10, langs: Optional[List[str]] = None, only_success: bool = False) -> str:
     if Translator is None:
         return "Error: googletrans not installed"
     try:
@@ -106,6 +106,8 @@ def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Opt
                     tr = getattr(tr_res, 'text', '<err>')
                 except Exception:
                     tr = '<err>'
+                if only_success and tr == '<err>':
+                    continue
                 row += f"  {tr.ljust(col3)}"
             lines.append(row)
 
