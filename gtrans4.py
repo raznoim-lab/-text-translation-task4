@@ -24,8 +24,9 @@ def main():
         print('Detect language:', gtrans4.LangDetect(txt, 'all'))
         print('Translate:', gtrans4.TransLate(txt, 'auto', 'en'))
         print('Get code:', gtrans4.CodeLang('en'))
-        print('\nLanguage list (trimmed to 10):')
-        gtrans4.LanguageList('screen', txt, max_items=10)
+        print('\nPopular languages:')
+        popular = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'it', 'pl', 'pt', 'nl']
+        gtrans4.LanguageList('screen', txt, langs=popular)
     except Exception as e:
         print('Error:', e)
 

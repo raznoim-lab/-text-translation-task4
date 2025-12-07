@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 try:
     from googletrans import Translator, LANGUAGES
 except Exception:
@@ -72,14 +72,17 @@ def CodeLang(lang: str) -> str:
     return "Невідомий код або мова"
 
 
-def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = 10) -> str:
+def LanguageList(out: str = 'screen', text: Optional[str] = None, max_items: Optional[int] = 10, langs: Optional[List[str]] = None) -> str:
     if Translator is None:
         return "Error: googletrans not installed"
     try:
         trans = Translator()
-        items = sorted(LANGUAGES.items())
-        if max_items is not None and max_items > 0:
-            items = items[:max_items]
+        if langs:
+            items = [(c, LANGUAGES.get(c, c)) for c in langs if c in LANGUAGES]
+        else:
+            items = sorted(LANGUAGES.items())
+            if max_items is not None and max_items > 0:
+                items = items[:max_items]
         col1 = max(len('Code'), max((len(k) for k, _ in items), default=4))
         col2 = max(len('Language'), max((len(v) for _, v in items), default=8))
         if text:
