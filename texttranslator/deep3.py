@@ -1,3 +1,7 @@
+# Модуль для перекладу за допомогою deep_translator 3.1.0a0
+# ВАЖНО: потребує Python < 3.13
+# Якщо використовувати Python 3.13+, буде помилка
+
 import sys
 from typing import Optional
 

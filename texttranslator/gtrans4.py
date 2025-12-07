@@ -1,3 +1,7 @@
+# Модуль для перекладу за допомогою googletrans
+# автор: Didovets
+# дата: 07.12.2025
+
 from typing import Optional
 try:
     from googletrans import Translator, LANGUAGES

@@ -1,3 +1,6 @@
+# Модуль для перекладу deep_translator + langdetect
+# Визначення мови через langdetect бібліотеку
+
 from typing import Optional
 
 def TransLate(text: str, src: str, dest: str) -> str:
