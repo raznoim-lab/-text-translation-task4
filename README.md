@@ -1,34 +1,37 @@
 # Text Translation Project
 
-A Python package for text translation using multiple translation services.
+Python package for text translation using googletrans and deep_translator.
 
-## Structure
+## Setup
 
-- `texttranslator/` — Package with three translation modules:
-  - `gtrans4.py` — Using googletrans 4.0.2
-  - `deep3.py` — Using deep_translator 3.1.0a0 (Python < 3.13)
-  - `deep_langdetect.py` — Using deep_translator with langdetect
-- `gtrans4.py` — Demonstration script for gtrans4 module
-- `gtrans3.py` — Demonstration script for deep3 module (requires Python 3.12 or lower)
-- `deeptr.py` — Demonstration script for deep_langdetect module
-- `filetr.py` — Text file translation program with configuration file
-- `input_text.txt` — Sample text file for translation
-- `filetr_config.json` — Configuration file for filetr.py
+Install dependencies:
+```
+pip install -r requirements.txt
+```
 
-## How to Run
+## Run Demo
 
-1. Activate virtual environment:
-   ```
-   .\Didovets\Scripts\Activate.ps1
-   ```
+```
+python gtrans4.py
+python gtrans3.py
+python deeptr.py
+python filetr.py
+```
 
-2. Run demonstration scripts:
-   ```
-   python gtrans4.py
-   python deeptr.py
-   python filetr.py
-   ```
+## Project Structure
 
-## Requirements
+`texttranslator/` — Translation modules:
+- `gtrans4.py` — googletrans (async support)
+- `deep3.py` — deep_translator (Python < 3.13)
+- `deep_langdetect.py` — deep_translator + langdetect
 
-See `requirements.txt` for all dependencies.
+Demo scripts show module usage with Ukrainian sample text and popular language translations (en, uk, fr, it, pt).
+
+`filetr.py` reads text from file, translates using config settings (max_chars, max_words, max_sentences).
+
+## Virtual Environment
+
+Project uses `Didovets/` virtual environment. Activate on Windows:
+```
+.\Didovets\Scripts\Activate.ps1
+```
