@@ -8,6 +8,19 @@ try:
 except Exception:
     Translator = None
     LANGUAGES = {}
+import asyncio
+
+
+def _maybe_await(value):
+    """If `value` is a coroutine, run it and return the result; otherwise return as-is."""
+    if asyncio.iscoroutine(value):
+        try:
+            return asyncio.run(value)
+        except RuntimeError:
+            # If there's already a running loop, use it to run the coroutine
+            loop = asyncio.get_event_loop()
+            return loop.run_until_complete(value)
+    return value
 
 
 def _to_code(lang: str) -> Optional[str]:
@@ -30,7 +43,8 @@ def TransLate(text: str, src: str, dest: str) -> str:
         trans = Translator()
         dest_code = _to_code(dest) or dest
         result = trans.translate(text, dest=dest_code)
-        return result.text
+        result = _maybe_await(result)
+        return getattr(result, 'text', str(result))
     except Exception as e:
         return f"Error in TransLate: {e}"
 
@@ -41,6 +55,7 @@ def LangDetect(text: str, what: str = 'all') -> str:
     try:
         trans = Translator()
         res = trans.detect(text)
+        res = _maybe_await(res)
         if what == 'lang':
             return res.lang
         if what == 'confidence':
@@ -87,7 +102,9 @@ def LanguageList(out: str = 'screen', text: Optional[str] = None) -> str:
             row = f"{code.ljust(col1)}  {name.ljust(col2)}"
             if text:
                 try:
-                    tr = trans.translate(text, dest=code).text
+                    tr_res = trans.translate(text, dest=code)
+                    tr_res = _maybe_await(tr_res)
+                    tr = getattr(tr_res, 'text', '<err>')
                 except Exception:
                     tr = '<err>'
                 row += f"  {tr.ljust(col3)}"
