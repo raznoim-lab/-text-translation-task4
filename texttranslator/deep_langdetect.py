@@ -1,6 +1,3 @@
-"""Module using deep_translator together with langdetect for detection.
-Provides same function set.
-"""
 from typing import Optional
 
 def TransLate(text: str, src: str, dest: str) -> str:
@@ -31,7 +28,6 @@ def LangDetect(text: str, what: str = 'all') -> str:
 
 def CodeLang(lang: str) -> str:
     try:
-        # deep_translator doesn't publish a stable language table; we'll try constants
         from deep_translator import constants
         langs = getattr(constants, 'LANGUAGES', {})
         v = lang.strip().lower()

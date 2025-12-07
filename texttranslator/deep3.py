@@ -1,6 +1,3 @@
-"""Module using deep_translator 3.1.0a0. This module checks Python version and refuses to run
-if Python >= 3.13 as required by the assignment.
-"""
 import sys
 from typing import Optional
 

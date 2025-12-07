@@ -1,15 +1,13 @@
 from texttranslator import deep3
 
 
-def demo():
+def main():
     txt = 'Hello, how are you?'
-    print('Original:', txt)
-    print('Detect:', deep3.LangDetect(txt, 'all'))
-    print('Translate to uk:', deep3.TransLate(txt, 'auto', 'uk'))
-    print('CodeLang uk ->', deep3.CodeLang('uk'))
-    print('\nLanguage list preview:')
-    print(deep3.LanguageList('screen', txt))
+    print('Original text:', txt)
+    print('Language detection:', deep3.LangDetect(txt, 'all'))
+    print('Translation to Ukrainian:', deep3.TransLate(txt, 'auto', 'uk'))
+    print('Code for "uk":', deep3.CodeLang('uk'))
 
 
 if __name__ == '__main__':
-    demo()
+    main()

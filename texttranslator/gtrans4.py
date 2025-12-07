@@ -1,6 +1,3 @@
-"""Module using googletrans 4.x to implement translation utilities.
-Functions: TransLate, LangDetect, CodeLang, LanguageList
-"""
 from typing import Optional
 try:
     from googletrans import Translator, LANGUAGES
@@ -13,11 +10,9 @@ def _to_code(lang: str) -> Optional[str]:
     if not lang:
         return None
     v = lang.strip().lower()
-    # code exact match
     for code in LANGUAGES.keys():
         if v == code.lower():
             return code
-    # name match
     for code, name in LANGUAGES.items():
         if v == name.lower():
             return code
@@ -29,7 +24,6 @@ def TransLate(text: str, src: str, dest: str) -> str:
         return "Error: googletrans not installed"
     try:
         trans = Translator()
-        # googletrans translate may not accept explicit 'src' in some versions; pass dest only
         dest_code = _to_code(dest) or dest
         result = trans.translate(text, dest=dest_code)
         return result.text
@@ -66,13 +60,11 @@ def CodeLang(lang: str) -> str:
 
 
 def LanguageList(out: str = 'screen', text: Optional[str] = None) -> str:
-    """Print or write table of supported languages and optionally the text translated to them."""
     if Translator is None:
         return "Error: googletrans not installed"
     try:
         trans = Translator()
         items = sorted(LANGUAGES.items())
-        # column widths
         col1 = max(len('Code'), max((len(k) for k, _ in items), default=4))
         col2 = max(len('Language'), max((len(v) for _, v in items), default=8))
         if text:

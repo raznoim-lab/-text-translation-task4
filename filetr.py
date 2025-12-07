@@ -10,13 +10,12 @@ def read_config(path: str) -> dict:
 
 def analyze_file(path: str) -> dict:
     if not os.path.exists(path):
-        return {'error': 'file not found'}
+        return {'error': 'File not found'}
     text = open(path, 'r', encoding='utf-8').read()
     size = os.path.getsize(path)
     chars = len(text)
     words = len(text.split())
     sentences = text.count('.') + text.count('!') + text.count('?')
-    # attempt detect
     det = gtrans4.LangDetect(text, 'all')
     return {
         'filename': os.path.basename(path),
@@ -46,12 +45,11 @@ def run_from_config(cfg_path: str):
 
     print('File:', info['filename'])
     print('Size:', info['size'])
-    print('Chars:', info['chars'])
+    print('Characters:', info['chars'])
     print('Words:', info['words'])
     print('Sentences:', info['sentences'])
-    print('Detected:', info['lang'])
+    print('Detected language:', info['lang'])
 
-    # read piecewise
     text = info['text']
     chosen = ''
     cur_chars = cur_words = cur_sentences = 0
@@ -68,8 +66,6 @@ def run_from_config(cfg_path: str):
         cur_words += len(line.split())
         cur_sentences += line.count('.') + line.count('?') + line.count('!')
 
-    # choose module
-    translator = None
     if module == 'gtrans4':
         translator = gtrans4
     elif module == 'deep3':
@@ -77,17 +73,16 @@ def run_from_config(cfg_path: str):
     elif module == 'deep_langdetect':
         translator = deep_langdetect
     else:
-        print('Unknown module in config')
+        print('Error: Unknown module in config')
         return
 
-    # perform translation
     result = translator.TransLate(chosen, 'auto', lang)
 
     if out_mode == 'screen':
-        print('---- Translation (', lang, ') ----')
+        print(f'---- Translation to {lang} ----')
         print(result)
     else:
-        outname = infile + f'.{lang}.translated.txt'
+        outname = infile + f'.{lang}.txt'
         with open(outname, 'w', encoding='utf-8') as f:
             f.write(result)
         print('Ok')
@@ -98,4 +93,4 @@ if __name__ == '__main__':
     if os.path.exists(cfg):
         run_from_config(cfg)
     else:
-        print('Config file filetr_config.json not found.')
+        print('Error: Config file filetr_config.json not found')

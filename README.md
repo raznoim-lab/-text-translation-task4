@@ -1,33 +1,34 @@
-Проєкт: Text translation (Didovets)
+# Text Translation Project
 
-Коротко
--------
-Цей репозиторій містить пакет для перекладу тексту та демонстраційні скрипти.
+A Python package for text translation using multiple translation services.
 
-Структура
----------
-- texttranslator/ — пакет з модулями для трьох реалізацій перекладача
-- gtrans4.py, gtrans3.py, deeptr.py, filetr.py — демонстраційні сценарії
-- Didovets/ — (створене віртуальне оточення; в .gitignore) — не коммітити
-- python312/ — (embeddable Python; в .gitignore) — не коммітити
-- requirements.txt — потрібні пакети
-- input_text.txt, filetr_config.json — приклад вхідних даних та конфіг
+## Structure
 
-Як запустити (локально, Windows PowerShell)
--------------------------------------------
-1) Активувати віртуальне оточення (створене тут як `Didovets`):
+- `texttranslator/` — Package with three translation modules:
+  - `gtrans4.py` — Using googletrans 4.0.2
+  - `deep3.py` — Using deep_translator 3.1.0a0 (Python < 3.13)
+  - `deep_langdetect.py` — Using deep_translator with langdetect
+- `gtrans4.py` — Demonstration script for gtrans4 module
+- `gtrans3.py` — Demonstration script for deep3 module (requires Python 3.12 or lower)
+- `deeptr.py` — Demonstration script for deep_langdetect module
+- `filetr.py` — Text file translation program with configuration file
+- `input_text.txt` — Sample text file for translation
+- `filetr_config.json` — Configuration file for filetr.py
 
-    .\Didovets\Scripts\Activate.ps1
+## How to Run
 
-2) Запустити демонстрацію (приклад):
+1. Activate virtual environment:
+   ```
+   .\Didovets\Scripts\Activate.ps1
+   ```
 
-    .\Didovets\Scripts\python.exe f:\\LAB\\py\\gtrans4.py
+2. Run demonstration scripts:
+   ```
+   python gtrans4.py
+   python deeptr.py
+   python filetr.py
+   ```
 
-3) Запустити програму для перекладу файлу (використовує filetr_config.json):
+## Requirements
 
-    .\Didovets\Scripts\python.exe f:\\LAB\\py\\filetr.py
-
-Примітки
---------
-- Віртуальне оточення та embeddable Python ігноруються в `.gitignore`.
-- Якщо потрібно, я можу підготувати запуск під GitHub Actions або додати тести.
+See `requirements.txt` for all dependencies.
